@@ -7,7 +7,10 @@ title: "DBO"
 {% for post in site.posts limit:10 %}
   <li>
     <a href="{{ post.url }}">
-      <h4><span>{{ post.title }}</span></h4>
+      <h4>
+        <span>{{ post.title }}
+        </span>
+      </h4>
     </a>
   </li>
 {% endfor %}
