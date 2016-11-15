@@ -32,7 +32,7 @@ tags: [安全,证书原理]
 certs  crl  newcerts  private
 [root@SZB-L0009803 CA]# 
 
-# database index file.
+ # database index file.
 [root@SZB-L0009803 CA]# touch index.txt
 [root@SZB-L0009803 CA]# ll
 total 16
