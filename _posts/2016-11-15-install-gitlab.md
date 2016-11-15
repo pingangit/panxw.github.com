@@ -4,14 +4,13 @@ category: "saltstack"
 title:  "saltstack部署gitfs之安装gitlab"
 tags: [saltstack,gitfs]
 ---
-gitlab 安装配置
-=============
+
 
 # 备注
         gitlab-ce-8.9.9-ce.0.el7.x86_64.rpm 这个版本从backups文件restore后，在页面看不到Repository菜单。
         升级到 gitlab-ce-8.9.11-ce.0.el7.x86_64.rpm 正常，升级步骤如下。
-```shell
-# 主备都需要升级
+```
+ 主备都需要升级
 gitlab-ctl status
 gitlab-ctl uninstall
 rpm -e gitlab-ce
