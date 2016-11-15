@@ -4,21 +4,21 @@ title: "DBO"
 ---
 
 <!-- Loop output paged posts -->
-{% for post in paginator.posts %}
+<!--{% for post in paginator.posts %}-->
 <h2>
-  <a href="{{ post.url }}">
-    {{ post.title }}
+  <a href="https://pingangit.github.io/posts/private_ca.html">
+    创建私有CA及签发证书
   </a>
   <div class="post-date">
 	<span class="glyphicon glyphicon-time"></span>
-	{{ post.date | date:"%Y-%m-%d" }}
+	2016-11-15
   </div>
 </h2>
 <hr>
-{{ post.excerpt }}
+本文通过使用 openssl 创建私有 CA 和签发证书，加深对证书原理的理解。
 	<p><h3><a href="{{ post.url }}">阅读全文 &raquo;</a></h3></p>
 <hr>
-{% endfor %}
+<!--{% endfor %}-->
 
 <!-- Pager indicator -->
 <ul class="pager">
