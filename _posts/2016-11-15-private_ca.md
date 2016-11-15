@@ -25,6 +25,7 @@ tags: [安全,证书原理]
 
 ### 1.1 创建目录/文件
         根据 openssl 的配置文件（/etc/pki/tls/openssl.cnf）创建相关目录/文件。
+
 ```        
 [root@SZB-L0009803 CA]# pwd
 /etc/pki/CA
@@ -55,6 +56,7 @@ drwx------. 2 root root 4096 Oct 17  2014 private
 -rw-r--r--  1 root root    3 Oct  6 17:30 serial
 [root@SZB-L0009803 CA]# 
 ```
+
 ### 1.2 生成 CA 私钥
         根据证书的原理，需要先生成私钥，然后从私钥中抽取公钥，再将公钥封装成证书。
 
@@ -73,6 +75,7 @@ total 4
 -rw------- 1 root root 1679 Oct  6 17:32 cakey.pem
 [root@SZB-L0009803 CA]# 
 ```
+
 ### 1.3 生成 CA 证书
 
     相关选项
@@ -117,13 +120,16 @@ drwx------. 2 root root 4096 Oct  6 17:32 private
 
 ## 2. CA 签发证书
         接下来我们模拟用户申请证书，CA 签发证书的过程。
+
 ### 2.1 用户生成 csr
         用户申请证书就像我们申请身份证一样，需要提交一份材料（csr），所以需要先生成 csr 文件，然后提交 csr 文件，CA 验证通过
     后，再签发证书给申请人。
         如下假设公司网站的 httpd 服务提供 HTTPS 服务，以 httpd 生成证书请求为例。
         注：实际中 CA 可签发用于各种服务器的证书，比如 nginx、tomcat、weblogic、硬件 F5 等。
+
 #### 2.1.1 生成私钥
         生成证书私钥文件。
+
 ```
 [root@SZB-L0009803 CA]# cd /etc/httpd/
 [root@SZB-L0009803 httpd]# mkdir ssl
@@ -143,6 +149,7 @@ total 4
 #### 2.1.2 生成证书请求
         根据私钥生成证书签署请求，即 csr 文件。
         由于这里是私有 CA ，因此申请证书的机构和 CA 机构是一个组织，即生成 crs 文件需要的组织信息和 CA 相同。
+
 ```
 [root@SZB-L0009803 ssl]# openssl req -new -key httpd.key -days 365 -out httpd.csr
 You are about to be asked to enter information that will be incorporated
@@ -171,8 +178,10 @@ total 8
 -rw------- 1 root root 1679 Oct  6 17:52 httpd.key
 [root@SZB-L0009803 ssl]#
 ```
+
 ### 2.2 提交证书请求
         这里模拟给 CA 机构提交证书请求，直接将请求文件 cp 到 /tmp 目录。
+
 ```
 [root@SZB-L0009803 ssl]# cp httpd.csr /tmp/
 [root@SZB-L0009803 ssl]# 
@@ -185,8 +194,10 @@ drwx------. 2 root root 4096 Mar  9  2015 pulse-Spog04rIKYWx
 -rw-------  1 root root  235 Sep 27 19:55 sysstat
 [root@SZB-L0009803 ssl]#
 ```
+
 ### 2.3 签发证书
         CA 收到证书请求后，会检查相关组织信息是否属实等，如果检查没有问题，就可以签发证书了。
+
 ```
 [root@SZB-L0009803 ssl]# cd /etc/pki/CA
 [root@SZB-L0009803 CA]# 
@@ -225,22 +236,23 @@ Write out database with 1 new entries
 Data Base Updated
 [root@SZB-L0009803 CA]#
 
-# 确认证书已经在指定目录生成
+ # 确认证书已经在指定目录生成
 [root@SZB-L0009803 CA]# ls -l certs/
 total 8
 -rw-r--r-- 1 root root 4588 Oct  6 17:58 httpd.crt
 [root@SZB-L0009803 CA]# 
 
-# 查看数据文件，已经生成新记录
+ # 查看数据文件，已经生成新记录
 [root@SZB-L0009803 CA]# cat index.txt
 V       171006095720Z           01      unknown /C=CN/ST=GuangDong/O=DBO/OU=Ops/CN=www.dbo.com/emailAddress=webadmin@dbo.com
 [root@SZB-L0009803 CA]#
 
-# 证书会先在 newcerts 目录生成
+ # 证书会先在 newcerts 目录生成
 [root@SZB-L0009803 CA]# ls newcerts/
 01.pem
 [root@SZB-L0009803 CA]#
 ```
+        
         接下来 CA 可以将证书发给申请证书的用户了。
 
 ### 2.4 查看证书信息
@@ -309,6 +321,7 @@ Certificate:
          e7:a0:94:0a
 [root@SZB-L0009803 CA]# 
 ```
+
 ## 3. 吊销证书
         模拟吊销证书的步骤。
 
@@ -323,6 +336,7 @@ subject= /C=CN/ST=GuangDong/O=DBO/OU=Ops/CN=www.dbo.com/emailAddress=webadmin@db
 
 ### 3.2 吊销证书
         CA 根据客户提交的serial与subject信息，对比检验是否与index.txt文件中的信息一致，确认无误后吊销证书。
+
 ```
 [root@SZB-L0009803 CA]# openssl ca -revoke /etc/pki/CA/newcerts/01.pem    
 Using configuration from /etc/pki/tls/openssl.cnf
@@ -330,13 +344,15 @@ Revoking Certificate 01.
 Data Base Updated
 [root@SZB-L0009803 CA]#
 ```
+
 ### 3.3 更新证书吊销列表
+
 ```
-# 生成吊销证书的编号(只有 CA 第一次吊销需要操作，后面会自增)
+ # 生成吊销证书的编号(只有 CA 第一次吊销需要操作，后面会自增)
 [root@SZB-L0009803 CA]# echo 01 > /etc/pki/CA/crlnumber
 [root@SZB-L0009803 CA]# 
 
-# 更新证书吊销列表
+ # 更新证书吊销列表
 [root@SZB-L0009803 CA]# openssl ca -gencrl -out dboca.crl
 Using configuration from /etc/pki/tls/openssl.cnf
 [root@SZB-L0009803 CA]#
