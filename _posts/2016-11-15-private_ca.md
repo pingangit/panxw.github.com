@@ -5,6 +5,10 @@ title:  "创建私有CA及签发证书"
 tags: [安全,证书原理]
 ---
 
+* TOC
+{:toc}
+
+
 创建私有CA及签发证书
 =================
 
@@ -79,8 +83,7 @@ total 4
 ### 1.3 生成 CA 证书
 
     相关选项
-        req: The req command primarily creates and processes certificate requests in PKCS#10 format. It can
-             additionally create self signed certificates for use as root CAs for example.
+        req: The req command primarily creates and processes certificate requests in PKCS#10 format. It can additionally create self signed certificates for use as root CAs for example.
         -new: 生成新证书签署请求；                  
         -x509: 专用于CA生成自签证书；               
         -key: 生成请求时用到的私钥文件；            
@@ -115,15 +118,13 @@ drwx------. 2 root root 4096 Oct  6 17:32 private
 -rw-r--r--  1 root root    3 Oct  6 17:30 serial
 [root@SZB-L0009803 CA]# 
 ```
-        至此，CA自签证书已经生成，私有 CA 已经创建完成，具备了签发证书的能力。将此证书导入到客户端受信任的根证书颁发机构，客户
-    端就可以信任该 CA 颁发的证书。
+        至此，CA自签证书已经生成，私有 CA 已经创建完成，具备了签发证书的能力。将此证书导入到客户端受信任的根证书颁发机构，客户端就可以信任该 CA 颁发的证书。
 
 ## 2. CA 签发证书
         接下来我们模拟用户申请证书，CA 签发证书的过程。
 
 ### 2.1 用户生成 csr
-        用户申请证书就像我们申请身份证一样，需要提交一份材料（csr），所以需要先生成 csr 文件，然后提交 csr 文件，CA 验证通过
-    后，再签发证书给申请人。
+        用户申请证书就像我们申请身份证一样，需要提交一份材料（csr），所以需要先生成 csr 文件，然后提交 csr 文件，CA 验证通过后，再签发证书给申请人。
         如下假设公司网站的 httpd 服务提供 HTTPS 服务，以 httpd 生成证书请求为例。
         注：实际中 CA 可签发用于各种服务器的证书，比如 nginx、tomcat、weblogic、硬件 F5 等。
 
@@ -258,6 +259,7 @@ V       171006095720Z           01      unknown /C=CN/ST=GuangDong/O=DBO/OU=Ops/
 ### 2.4 查看证书信息
         openssl 可以查看证书相关信息。
         命令：openssl x509 -in /PATH/FROM/CERT_FILE -noout -text|-subject|-serial
+
 ```
 [root@SZB-L0009803 CA]# openssl x509 -in /etc/httpd/ssl/httpd.crt -noout -text  
 Certificate:
@@ -327,6 +329,7 @@ Certificate:
 
 ### 3.1 获取待吊销证书的序列号
         客户端查看证书序列号，发给 CA 机构申请吊销。
+
 ```
 [root@SZB-L0009803 CA]# openssl x509 -in /etc/httpd/ssl/httpd.crt -noout -serial -subject
 serial=01
@@ -357,6 +360,7 @@ Data Base Updated
 Using configuration from /etc/pki/tls/openssl.cnf
 [root@SZB-L0009803 CA]#
 ```
+
 ### 3.4 查看吊销列表
         可以用 openssl 命令查看证书吊销列表。
 
