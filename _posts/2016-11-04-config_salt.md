@@ -1,7 +1,7 @@
 ---
 layout: post
 category: "saltstack"
-title:  "saltstack gitfs 之配置"
+title:  "saltstack gitfs 之配置master/syndic"
 tags: [saltstack,gitfs]
 ---
 
