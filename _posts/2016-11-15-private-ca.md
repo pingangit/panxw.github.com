@@ -1,6 +1,6 @@
 ---
 layout: post
-category: "linux"
+category: "security"
 title:  "创建私有CA及签发证书"
 tags: [安全,证书原理]
 ---
