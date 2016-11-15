@@ -12,7 +12,7 @@ domain: pingangit.github.io
 all_categories: [
 ["python", "Python","/posts/python.html"],
 ["linux", "Linux","/posts/linux.html"],
-["saltstack", "saltstack","/posts/saltstack.html"],
+["Saltstack", "saltstack","/posts/saltstack.html"],
 ["web", "web","/posts/web.html"],
 ["security", "安全","/posts/security.html"],
 ["read", "读书笔记","/posts/read.html"],
