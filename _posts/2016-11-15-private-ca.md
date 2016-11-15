@@ -342,11 +342,11 @@ Data Base Updated
 
 ### 3.3 更新证书吊销列表
 ```
-# 生成吊销证书的编号(只有 CA 第一次吊销需要操作，后面会自增)
+ 生成吊销证书的编号(只有 CA 第一次吊销需要操作，后面会自增)
 [root@SZB-L0009803 CA]# echo 01 > /etc/pki/CA/crlnumber
 [root@SZB-L0009803 CA]# 
 
-# 更新证书吊销列表
+ 更新证书吊销列表
 [root@SZB-L0009803 CA]# openssl ca -gencrl -out dboca.crl
 Using configuration from /etc/pki/tls/openssl.cnf
 [root@SZB-L0009803 CA]#
