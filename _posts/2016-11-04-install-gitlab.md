@@ -2,7 +2,7 @@
 layout: post
 category: "saltstack"
 title:  "saltstack gitfs 之部署 gitlab"
-tags: [安全,证书原理]
+tags: [saltstack,gitfs]
 ---
 
 * TOC
