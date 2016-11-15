@@ -3,14 +3,42 @@ layout: index
 title: "DBO"
 ---
 
-<ul>
-{% for cat in site.categories %}
-    {% if cat[0] != 'blog' %}
-   <a name="{{ cat[0] }}"></a>
-   <h2>{{ cat[0] }}({{ cat[1].size }})</h2>
-     {% for post in cat[1] %}
-    <li><h4><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></h4></li>
-    {% endfor %}
-   {% endif %}
+<!-- Loop output paged posts -->
+{% for post in paginator.posts %}
+<h2>
+  <a href="{{ post.url }}">
+    {{ post.title }}
+  </a>
+  <div class="post-date">
+	<span class="glyphicon glyphicon-time"></span>
+	{{ post.date | date:"%Y-%m-%d" }}
+  </div>
+</h2>
+<hr>
+{{ post.excerpt }}
+	<p><h3><a href="{{ post.url }}">阅读全文 &raquo;</a></h3></p>
+<hr>
 {% endfor %}
+
+<!-- Pager indicator -->
+<ul class="pager">
+  {% if paginator.previous_page %} {% if paginator.previous_page == 1 %}
+  <li class="previous">
+    <a href="/">
+      &larr; 上一页
+    </a>
+  </li>
+  {% else %}
+  <li class="previous">
+    <a href="/posts/page{{ paginator.previous_page }}/index.html">
+      &larr; 上一页
+    </a>
+  </li>
+  {% endif %} {% endif %} {% if paginator.next_page %}
+  <li class="next">
+    <a href="/posts/page{{ paginator.next_page }}/index.html">
+      下一页 &rarr;
+    </a>
+  </li>
+  {% endif %}
 </ul>
