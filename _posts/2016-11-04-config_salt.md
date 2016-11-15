@@ -5,6 +5,9 @@ title:  "saltstack gitfs 之配置master/syndic"
 tags: [saltstack,gitfs]
 ---
 
+* TOC
+{:toc}
+
 配置 gitfs
 =========
 
