@@ -1,9 +1,17 @@
+---
+layout: post
+category: "saltstack"
+title:  "saltstack gitfs 之配置"
+tags: [saltstack,gitfs]
+---
+
 配置 gitfs
 =========
 
         如下操作在master/syndic节点执行。
 
 ## 1. 安装依赖
+
 ```
 unzip GitPython.zip 
 cd GitPython;yum -y install *.rpm
@@ -11,6 +19,7 @@ cd GitPython;yum -y install *.rpm
 
 ## 2. 配置 saltstack
         修改 /etc/salt/master 添加如下配置。
+
 ```
 fileserver_backend:
   - git
@@ -25,6 +34,7 @@ gitfs_remotes:
 ## 3. 添加 public key
         在主 gitlab 页面添加 master/syndic 的 public key。
         如果不存在 public key ，按照如下步骤生成 public key。
+
 ```
 [root@CNLF041518 ~]# ssh-keygen 
 Generating public/private rsa key pair.
@@ -53,12 +63,14 @@ ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAnRuiz0OUa25nGry4DQu2vx9z2O8adb32Gu0l9WbW9TMW
 ```
 
 ## 4. 重启 salt-master
+
 ```
 service salt-master restart
 ```
 
 ## 5. 验证
         在 master/syndic 节点执行如下命令，如果结果显示远程仓库的文件则 gitfs 配置成功。
+
 ```
 salt-run fileserver.file_list
 ```
@@ -69,12 +81,15 @@ salt-run fileserver.file_list
 #### 【现象】
 
         /var/log/salt/master 日志中出现如下信息
+
 ```
 2016-11-04 17:01:30,857 [salt.utils.gitfs                                     ][ERROR   ][113884] Exception 'len([]) != len(['Host key verification failed.', ''])' caught while fetching gitfs remote 'git@30.16.226.110:salt/salt-formula.git'
 2016-11-04 17:01:31,186 [salt.utils.gitfs                                     ][ERROR   ][113884] Exception 'len([]) != len(['Host key verification failed.', ''])' caught while fetching gitfs remote 'git@30.4.226.57:salt/salt-formula.git'
 ```
+
 #### 【解决方法】
         把日志出现的异常 repository 都手动 clone 一次，使 git 访问正常就可以了。 
+
 ```
 cd /tmp/
 
