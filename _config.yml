@@ -1,4 +1,4 @@
-markdown: kramdown
+markdown: markdown
 highlighter: pygments
 permalink: /posts/:title.html
 excerpt_separator: "<!-- more -->"
