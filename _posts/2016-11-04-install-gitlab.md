@@ -32,6 +32,7 @@ rpm -i gitlab-ce-8.9.11-ce.0.el7.x86_64.rpm
 
 
 # 2. 安装并启动
+
 ## 2.1 安装命令
 
 ```shell
@@ -97,6 +98,7 @@ run: unicorn: (pid 17353) 77s; run: log: (pid 17352) 77s
         默认用户名和密码：root/5iveL!fe
 
 # 4. 维护
+
 ## 4.1 维护命令
 
 * 启动
@@ -179,6 +181,7 @@ unix  2      [ ACC ]     STREAM     LISTENING     9880   1475/acpid          /va
 ```
 
 # 5. 备份
+
 ## 5.1 配置步骤
 
 ### 5.1.1 创建备份目录
@@ -431,6 +434,7 @@ rsync -azP --delete --password-file=/etc/rsyncd.passwd gitlab@10.20.19.105::gitl
 ```
 
 # 7. 自动同步并恢复
+
 * ### 记录
 * 以“主gitlab”的/etc/gitlab/gitlab-secrets.json覆盖“备gitlab”
 * “主gitlab”启动了 rsyncd 服务
