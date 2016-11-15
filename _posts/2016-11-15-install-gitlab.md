@@ -1,4 +1,9 @@
-
+---
+layout: post
+category: "saltstack"
+title:  "saltstack部署gitfs之安装gitlab"
+tags: [saltstack,gitfs]
+---
 gitlab 安装配置
 =============
 
